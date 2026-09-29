@@ -1,0 +1,14 @@
+[Unit]
+Description=loopstrap auto-update (git pull on boot)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# Assumes the repo lives at /home/pi/loopstrap on the Pi.
+WorkingDirectory=/home/pi/loopstrap
+ExecStart=/usr/bin/git pull --ff-only
+User=pi
+
+[Install]
+WantedBy=multi-user.target
