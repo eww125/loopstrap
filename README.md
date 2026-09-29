@@ -39,14 +39,19 @@ Hold MODE -> shift mode: the 8 buttons become effect slots (stub for now).
 ```bash
 git clone <repo> /home/pi/loopstrap
 cd /home/pi/loopstrap
-bash pi-setup/install.sh        # one-time: deps + boot auto-update
-.venv/bin/python controller/looper.py
+bash pi-setup/install.sh        # one-time: deps + boot auto-update + service
+```
+
+The controller then runs as a service: it starts on boot, restarts itself
+if it crashes, and pulls the latest code from GitHub every boot.
+
+```bash
+journalctl -u loopstrap -f      # live log (from your Mac over SSH)
+sudo systemctl restart loopstrap
 ```
 
 On any other machine: `python3 controller/looper.py --mock` exercises the
 state machine without Pi hardware.
-
-Every boot, the Pi `git pull`s this repo, so pushed fixes land on their own.
 
 ## Layout
 

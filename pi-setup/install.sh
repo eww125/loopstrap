@@ -17,6 +17,12 @@ sudo cp pi-setup/loopstrap-update.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable loopstrap-update.service
 
+# Controller service: runs the looper at boot, restarts on crash, logs output.
+sudo cp pi-setup/loopstrap.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now loopstrap.service
+
 echo "done."
-echo "run the controller:  .venv/bin/python controller/looper.py"
-echo "hardware test mode:  .venv/bin/python controller/looper.py --mock"
+echo "live log:   journalctl -u loopstrap -f"
+echo "restart:    sudo systemctl restart loopstrap"
+echo "manual run: .venv/bin/python controller/looper.py"

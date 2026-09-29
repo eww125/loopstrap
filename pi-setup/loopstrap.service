@@ -1,0 +1,16 @@
+[Unit]
+Description=loopstrap 8-track looper controller
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Assumes the repo lives at /home/pi/loopstrap on the Pi.
+WorkingDirectory=/home/pi/loopstrap
+ExecStart=/home/pi/loopstrap/.venv/bin/python controller/looper.py
+Restart=on-failure
+RestartSec=2
+User=pi
+
+[Install]
+WantedBy=multi-user.target
